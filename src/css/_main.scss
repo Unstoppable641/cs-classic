@@ -1,0 +1,5 @@
+//All styles can be added here.
+.container {
+    @apply py-0 px-3.5 my-0 mx-auto sm:px-5 xl:px-10
+    2xl:max-w-[1310px] xl:max-w-[1028px] lg:max-w-[1024px] md:max-w-[768px] max-w-[375px];
+}

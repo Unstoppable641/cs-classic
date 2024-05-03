@@ -1,0 +1,13 @@
+
+## IDE 
+/.idea
+/.vscode
+/.helm
+
+## Dist develop directory
+/dist/
+/devops/
+
+## Dependencies
+/node_modules/
+
