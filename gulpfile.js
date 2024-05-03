@@ -72,12 +72,6 @@ function devImages() {
   );
 }
 
-function devImages() {
-  return src(`${options.paths.src.img}/**/*`).pipe(
-    dest(options.paths.dist.img)
-  );
-}
-
 function devFonts() {
   return src(`${options.paths.src.fonts}/**/*`).pipe(
     dest(options.paths.dist.fonts)
@@ -214,6 +208,11 @@ function buildFinish(done) {
   done();
 }
 
+function moveToRoot() {
+  return src(`${options.paths.build.base}/**/*`)
+      .pipe(dest('./'));  // Move to root directory
+}
+
 exports.default = series(
   devClean, // Clean Dist Folder
   parallel(devStyles, devScripts, devImages, devFonts, devThirdParty, devHTML), //Run All tasks in parallel
@@ -222,14 +221,15 @@ exports.default = series(
 );
 
 exports.prod = series(
-  prodClean, // Clean Build Folder
-  parallel(
-    prodStyles,
-    prodScripts,
-    prodImages,
-    prodHTML,
-    prodFonts,
-    prodThirdParty
-  ), //Run All tasks in parallel
-  buildFinish
+    prodClean,  // Clean Build Folder
+    parallel(
+        prodStyles,
+        prodScripts,
+        prodImages,
+        prodHTML,
+        prodFonts,
+        prodThirdParty
+    ), // Run All tasks in parallel
+    moveToRoot,  // Move files to root
+    buildFinish
 );
